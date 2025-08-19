@@ -162,7 +162,7 @@ function draw() {
       shaking = true;
     } else {
       shaking = false;
-      background(220);
+      background(255);
     }
 
     image(imgToShow, imgX, imgY, imgW, imgH);
@@ -178,7 +178,7 @@ function draw() {
   }
 
   if (currentState === "brushing") {
-    background(240);
+    background(255);
   
     // Update dragging
     if (draggingPaste && toothpasteVisible) {
@@ -318,7 +318,7 @@ if (brushingBubbles) {
     translate(random(-5, 5), random(-5, 5));
     background(255, 0, 0, 50);
   } else {
-    background(220);
+    background(255);
   }
 
   if (imgToShow) {
@@ -343,12 +343,12 @@ if (brushingBubbles) {
     }
   }
   if (currentState === "allclean") {
-    background(240);
-    let scale = 0.5;
+    background(255);
+    let scale = 0.75;
     let acW = allcleanImg.width * scale;
     let acH = allcleanImg.height * scale;
     let acX = width / 2 - acW / 2;
-    let acY = height / 3 - acH / 2;
+    let acY = height / 2 - acH / 2;
     image(allcleanImg, acX, acY, acW, acH);
   
     // GO button
@@ -360,7 +360,7 @@ if (brushingBubbles) {
     return;
   }
   if (currentState === "doorScene") {
-    background(220);
+    background(255);
   
     // Door centered
     let dW = doorImg.width * 0.6;
@@ -396,10 +396,10 @@ if (brushingBubbles) {
     return;
   }    
   if (currentState === "girlScene") {
-    background(240);
+    background(255);
   
     // Draw girl
-    let gW = girlImg.width * 0.5;
+    let gW = girlImg.width * 0.55;
     let gH = girlImg.height * 0.5;
     let gX = width/2 - gW/2;
     let gY = height/4;
@@ -434,30 +434,35 @@ if (brushingBubbles) {
   }
   
   if (currentState === "letsgoSeq") {
-    background(240);
+    background(255);
   
-    // float coffee first
+    // ☕ Coffee floats in from LEFT
     if (floatCoffee) {
+      coffeeX += 1.5; // speed to the right
+      coffeeY = height/2 - coffeeH + sin(frameCount * 0.08) * 25;
       image(cofImg, coffeeX, coffeeY, coffeeW, coffeeH);
-      coffeeX += 2; // move across
-      if (coffeeX > width) {
+  
+      if (coffeeX > width) { // once coffee leaves the screen
         floatCoffee = false;
-        floatChoco = true;
-        chocoX = -chocoW;
       }
     }
   
-    // float chocolate next
+    // 🍫 Chocolate floats in from RIGHT
     if (floatChoco) {
+      chocoX -= 1.5; // speed to the left
+      chocoY = height/2 + sin(frameCount * 0.1 + 100) * 30;
       image(chocoImg, chocoX, chocoY, chocoW, chocoH);
-      chocoX += 2;
-      if (chocoX > width) {
+  
+      if (chocoX + chocoW < 0) { // once chocolate leaves the screen
         floatChoco = false;
-        bestday = true;
       }
     }
   
-    // finally bestday
+    // Show BEST DAY once both have gone
+    if (!floatCoffee && !floatChoco && !bestday) {
+      bestday = true;
+    }
+  
     if (bestday) {
       let bW = bestdayImg.width * 0.6;
       let bH = bestdayImg.height * 0.6;
@@ -466,6 +471,9 @@ if (brushingBubbles) {
       image(bestdayImg, bX, bY, bW, bH);
     }
   }
+  
+  
+  
   if (bestday && !showThanks) {
     let bW = bestdayImg.width * 0.6;
     let bH = bestdayImg.height * 0.6;
@@ -489,7 +497,7 @@ if (brushingBubbles) {
   }
 
   if (showThanks) {
-    background(240);
+    background(255);
     textAlign(CENTER, CENTER);
     textSize(48);
     fill(0);
@@ -617,15 +625,22 @@ function mousePressed() {
     }
     if (isHovering(letsgoX, letsgoY, letsgoW, letsgoH)) {
       currentState = "letsgoSeq";
+    
+      // Coffee setup
       floatCoffee = true;
-      coffeeW = cofImg.width * 0.3;
-      coffeeH = cofImg.height * 0.3;
-      coffeeX = -coffeeW;
+      coffeeW = cofImg.width * 0.5;
+      coffeeH = cofImg.height * 0.5;
+      coffeeX = -coffeeW; // start offscreen left
       coffeeY = height/2 - coffeeH;
-      chocoW = chocoImg.width * 0.3;
-      chocoH = chocoImg.height * 0.3;
+    
+      // Chocolate setup
+      floatChoco = true;
+      chocoW = chocoImg.width * 0.5;
+      chocoH = chocoImg.height * 0.5;
+      chocoX = width;      // start offscreen right
       chocoY = height/2;
     }
+    
     return;
   }
 
