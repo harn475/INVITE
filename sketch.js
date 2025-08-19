@@ -144,7 +144,7 @@ function draw() {
       textFont(decaydenceFont);
       text(dramaticMessage, width / 2, height - 100);
 
-      if (millis() - boomStartTime > 3000) {
+      if (millis() - boomStartTime > 2500) {
         image(tryagainImg, tryAgainX, tryAgainY, tryAgainW, tryAgainH);
       }
     }
@@ -396,11 +396,18 @@ if (brushingBubbles) {
     return;
   }    
   if (currentState === "girlScene") {
-    background(255);
+    if (isHovering(yonoX, yonoY, yonoW, yonoH)) {
+      background(255, 0, 0); // 🔴 full red screen
+      drawFire();
+      shaking = true;
+    } else {
+      background(255); // normal white screen
+      shaking = false;
+    }
   
     // Draw girl
-    let gW = girlImg.width * 0.55;
-    let gH = girlImg.height * 0.5;
+    let gW = girlImg.width * 0.75;
+    let gH = girlImg.height * 0.7;
     let gX = width/2 - gW/2;
     let gY = height/4;
     image(girlImg, gX, gY, gW, gH);
@@ -428,7 +435,6 @@ if (brushingBubbles) {
     } else {
       shaking = false;
     }
-  
     updateAndDrawSparkles();
     return;
   }
