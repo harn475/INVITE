@@ -309,7 +309,6 @@ if (brushingBubbles) {
     currentState = "allclean";
   }
 }
-
   
     return;
   }
