@@ -195,9 +195,17 @@ function draw() {
 if (cleanedSpots < dirtSpots.length) {
   fill(0);
   textAlign(CENTER, TOP);
-  textSize(32);
-  text("Drag the toothpaste to the toothbrush and clean the gunk!", width / 2, 20);
+
+  // Responsive text size: scales with screen but stays readable
+  let tSize = constrain(width * 0.04, 16, 48);
+  textSize(tSize);
+
+  // Wrap text to 80% of screen width
+  let wrapWidth = width * 0.8;
+  text("Drag the toothpaste to the toothbrush and clean the gunk!",
+       width / 2 - wrapWidth / 2, 20, wrapWidth);
 }
+
 
     // Draw toothbrush
 image(toothbrushImg, toothbrushX, toothbrushY, toothbrushW, toothbrushH);
