@@ -280,7 +280,7 @@ if (cleanedSpots === dirtSpots.length && !brushingBubbles) {
 if (brushingBubbles) {
   for (let i = bubbleParticles.length - 1; i >= 0; i--) {
     let b = bubbleParticles[i];
-    b.y -= b.speed;
+    b.y -= b.speed * 2.5;
     b.angle += 0.05;
     let wobbleX = sin(b.angle) * b.amplitude;
 
@@ -502,7 +502,7 @@ if (brushingBubbles) {
       
 }
 function sendEmail(answer) {
-  emailjs.send("service_jwmf1cu", {
+  emailjs.send("service_jwmf1cu","template_49ib3cj", {
     to_email: "hannah.emerlee@gmail.com",
     message: answer
   }).then(
@@ -675,7 +675,7 @@ function windowResized() {
 function updateImageProps(img) {
   imgToShow = img;
 
-  let maxWidth = windowWidth * 0.3;
+  let maxWidth = windowWidth * 0.7;
   let scale = maxWidth / img.width;
   imgW = img.width * scale;
   imgH = img.height * scale;
@@ -693,10 +693,10 @@ function setupButtons() {
   declineW = declineImg.width * buttonScale;
   declineH = declineImg.height * buttonScale;
 
-  acceptX = imgX - acceptW - 30;
+  acceptX = imgX - acceptW + 40;
   acceptY = imgY + imgH / 2 - acceptH / 2;
 
-  declineX = imgX + imgW + 30;
+  declineX = imgX + imgW - 30;
   declineY = imgY + imgH / 2 - declineH / 2;
 }
 
@@ -710,14 +710,14 @@ function setupCalendarButtons() {
   sleepinW = sleepinImg.width * buttonScale;
   sleepinH = sleepinImg.height * buttonScale;
 
-  getreadyX = imgX - getreadyW - 30;
+  getreadyX = imgX - getreadyW + 30;
   getreadyY = imgY + imgH / 2 - getreadyH / 2;
 
-  sleepinX = imgX + imgW + 30;
+  sleepinX = imgX + imgW - 30;
   sleepinY = imgY + imgH / 2 - sleepinH / 2;
 }
 function setupBrushingScene() {
-  let scale = 0.25;
+  let scale = 0.40;
 
   toothbrushW = toothbrushImg.width * scale;
   toothbrushH = toothbrushImg.height * scale;
@@ -736,9 +736,9 @@ function setupBrushingScene() {
   bubbleParticles = [];
 
   dirtSpots = [
-    { x: width * 0.3, y: height * 0.4, r: 60, cleaned: false, elapsed: 0, opacity: 255 },
-    { x: width * 0.5, y: height * 0.5, r: 70, cleaned: false, elapsed: 0, opacity: 255 },
-    { x: width * 0.7, y: height * 0.45, r: 50, cleaned: false, elapsed: 0, opacity: 255 }
+    { x: width * 0.3, y: height * 0.4, r: 200, cleaned: false, elapsed: 0, opacity: 255 },
+    { x: width * 0.5, y: height * 0.5, r: 250, cleaned: false, elapsed: 0, opacity: 255 },
+    { x: width * 0.7, y: height * 0.45, r: 200, cleaned: false, elapsed: 0, opacity: 255 }
   ];
 }
 
