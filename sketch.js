@@ -280,7 +280,7 @@ if (cleanedSpots === dirtSpots.length && !brushingBubbles) {
 if (brushingBubbles) {
   for (let i = bubbleParticles.length - 1; i >= 0; i--) {
     let b = bubbleParticles[i];
-    b.y -= b.speed * 2.5;
+    b.y -= b.speed * 3;
     b.angle += 0.05;
     let wobbleX = sin(b.angle) * b.amplitude;
 
@@ -438,7 +438,7 @@ if (brushingBubbles) {
   
     // ☕ Coffee floats in from LEFT
     if (floatCoffee) {
-      coffeeX += 1.5; // speed to the right
+      coffeeX += 3; // speed to the right
       coffeeY = height/2 - coffeeH + sin(frameCount * 0.08) * 25;
       image(cofImg, coffeeX, coffeeY, coffeeW, coffeeH);
   
@@ -449,7 +449,7 @@ if (brushingBubbles) {
   
     // 🍫 Chocolate floats in from RIGHT
     if (floatChoco) {
-      chocoX -= 1.5; // speed to the left
+      chocoX -= 3; // speed to the left
       chocoY = height/2 + sin(frameCount * 0.1 + 100) * 30;
       image(chocoImg, chocoX, chocoY, chocoW, chocoH);
   
@@ -628,15 +628,15 @@ function mousePressed() {
     
       // Coffee setup
       floatCoffee = true;
-      coffeeW = cofImg.width * 0.5;
-      coffeeH = cofImg.height * 0.5;
+      coffeeW = cofImg.width * 0.7;
+      coffeeH = cofImg.height * 0.7;
       coffeeX = -coffeeW; // start offscreen left
       coffeeY = height/2 - coffeeH;
     
       // Chocolate setup
       floatChoco = true;
-      chocoW = chocoImg.width * 0.5;
-      chocoH = chocoImg.height * 0.5;
+      chocoW = chocoImg.width * 0.7;
+      chocoH = chocoImg.height * 0.7;
       chocoX = width;      // start offscreen right
       chocoY = height/2;
     }
@@ -690,7 +690,7 @@ function windowResized() {
 function updateImageProps(img) {
   imgToShow = img;
 
-  let maxWidth = windowWidth * 0.7;
+  let maxWidth = windowWidth * 0.5;
   let scale = maxWidth / img.width;
   imgW = img.width * scale;
   imgH = img.height * scale;
